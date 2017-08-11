@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(user_session_params)
     if @user_session.save
-      redirect_to account_url
+      redirect_to '/'
     else
       render :action => :new
     end

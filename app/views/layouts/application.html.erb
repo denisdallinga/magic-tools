@@ -37,7 +37,11 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <a href="https://devcenter.heroku.com"><span class="glyphicon glyphicon-book"></span> Heroku Dev Center</a>
+        <% if current_user %>
+          <%= link_to "Logout", "/user_sessions/#{current_user.id}", method: :delete %>
+        <% else %>
+          <%= link_to "Login", "/user_sessions/new" %>
+        <% end %>
       </li>
     </ul>
   </div>

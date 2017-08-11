@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
 
+  protected
+    def check_user
+      redirect_to '/user_sessions/new' unless current_user
+    end
+
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
