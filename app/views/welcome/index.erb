@@ -1,3 +1,6 @@
 <div class="container">
-Hello World!
+  Hello World!
+  <% @poules.each do |poule| %>
+    <%= link_to poule.name, poule %>
+  <% end %>
 </div>
