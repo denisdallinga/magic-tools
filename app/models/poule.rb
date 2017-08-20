@@ -2,6 +2,7 @@ class Poule < ActiveRecord::Base
 
   has_many :players
   has_many :dice_roll_rounds
+  has_many :card_picks
 
   before_create :set_initial_state
 
@@ -56,4 +57,25 @@ class Poule < ActiveRecord::Base
     save!
   end
 
+  def player_thats_allowed_to_pick
+    raise 'Card pick has not started yet!' unless self.state >= Poule::CARD_PICK_STARTED
+    Player.find(
+      Poule.connection.execute("
+        SELECT
+          p.id,
+          p.position,
+          COUNT(cp.id)
+        FROM players p LEFT JOIN
+          card_picks cp ON p.id = cp.picked_by
+        WHERE
+          p.poule_id = #{self.id}
+        GROUP BY
+          p.id,
+          p.position
+        ORDER BY
+          COUNT(cp.id) DESC,
+          p.position ASC;
+      ").first['id']
+    )
+  end
 end
