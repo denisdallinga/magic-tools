@@ -23,6 +23,9 @@ def init_card_picks
 end
 
 Poule.delete_all
+CardPick.delete_all
+Card.delete_all
+Player.delete_all
 poule = Poule.create!(name: "Conspiracy take the crown sessie 1")
 
 Player.create!(user: User.find_by_email('denis@magictools.nl'), poule: poule)

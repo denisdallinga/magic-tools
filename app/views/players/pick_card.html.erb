@@ -1,0 +1,16 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <%= form_tag("/players/#{@player.id}/do_pick", method: "post") do %>
+    <% @card_picks.each do |card_pick| %>
+      <p>
+        <strong>
+          <%= radio_button_tag(:card_pick_id, card_pick.id) %>
+          <%= link_to card_pick.card.card_name, controller: :cards, action: :show, id: card_pick.card.id %>
+          (<%= card_pick.card.rarity %>)
+        </strong>
+      </p>
+    <% end %>
+    <%= submit_tag 'Pick card' %>
+  <% end %>
+</div>

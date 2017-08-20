@@ -73,9 +73,13 @@ class Poule < ActiveRecord::Base
           p.id,
           p.position
         ORDER BY
-          COUNT(cp.id) DESC,
+          COUNT(cp.id) ASC,
           p.position ASC;
       ").first['id']
     )
+  end
+
+  def dice_roll_is_done
+    self.state >= Poule::CARD_PICK_STARTED
   end
 end

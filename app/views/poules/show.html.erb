@@ -43,4 +43,8 @@
     </tbody>
   </table>
 
+  <% if @poule.dice_roll_is_done %>
+    <%= render 'card_picks' %>
+  <% end %>
+
 </div>
