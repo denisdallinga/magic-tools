@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811183513) do
+ActiveRecord::Schema.define(version: 20170815165656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dice_roll_rounds", force: :cascade do |t|
+    t.integer "poule_id"
+    t.json    "state"
+    t.boolean "round_finished"
+  end
 
   create_table "players", force: :cascade do |t|
     t.integer "user_id"
@@ -23,7 +29,8 @@ ActiveRecord::Schema.define(version: 20170811183513) do
   end
 
   create_table "poules", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "state"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,13 +57,5 @@ ActiveRecord::Schema.define(version: 20170811183513) do
   add_index "users", ["perishable_token"], name: "index_users_on_perishable_token", unique: true, using: :btree
   add_index "users", ["persistence_token"], name: "index_users_on_persistence_token", unique: true, using: :btree
   add_index "users", ["single_access_token"], name: "index_users_on_single_access_token", unique: true, using: :btree
-
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "stock"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

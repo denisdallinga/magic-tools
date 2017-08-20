@@ -2,8 +2,45 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <strong>Name:</strong>
-    <%= @poule.name %>
+    <strong>
+      <%= @poule.name %>
+    </strong>
+    <br />
+    <%= @poule.state_to_s %>
   </p>
+
+  <h1>Players</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+      <% @poule.dice_roll_rounds.order(:id).each do |dice_roll_round| %>
+        <th>
+          <%= "Dice roll round #{dice_roll_round.id}" %>
+        </th>
+      <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @poule.players.order(:position).each do |player| %>
+        <tr>
+          <td><%= player.user.email %></td>
+          <td><%= player.position %></td>
+        <% @poule.dice_roll_rounds.order(:id).each do |dice_roll_round| %>
+          <td>
+          <% if dice_roll_round.player_allowed_to_roll_dice?(player.id) and player.user == current_user %>
+            <%= link_to('Roll dice', roll_dice_url(id: player.id)) %>
+          <% else %>
+            <%= dice_roll_round.dice_roll(player.id) %>
+          <% end %>
+          </td>
+        <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 </div>
