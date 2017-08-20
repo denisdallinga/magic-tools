@@ -7,6 +7,7 @@ class Poule < ActiveRecord::Base
 
   INITIALIZED = 0
   DICE_ROLL_STARTED = 1
+  CARD_PICK_STARTED = 2
 
   def start_dice_roll!
     raise 'Dice roll already started!' if state >= DICE_ROLL_STARTED
@@ -37,10 +38,22 @@ class Poule < ActiveRecord::Base
       return 'Poule created, waiting for dice roll to start'
     when Poule::DICE_ROLL_STARTED
       return 'Dice roll has started'
+    when Poule::CARD_PICK_STARTED
+      return 'Card pick started'
     else
       return 'Unknown state'
     end
   end
 
+  def compute_and_progress_state
+    if self.state == Poule::DICE_ROLL_STARTED
+      self.dice_roll_rounds.each do |dice_roll_round|
+        return true if not dice_roll_round.round_finished?
+      end
+      self.state = Poule::CARD_PICK_STARTED
+    end
+
+    save!
+  end
 
 end

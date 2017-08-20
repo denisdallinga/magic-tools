@@ -4,6 +4,7 @@ class DiceRollRound < ActiveRecord::Base
   belongs_to :poule
 
   before_save :compute_state_and_assign_positions
+  after_save :compute_and_progress_poule_state
 
   #     {
   #       dice_rolls: {1: 1, 2: 2},
@@ -71,6 +72,10 @@ class DiceRollRound < ActiveRecord::Base
     end
 
     self.round_finished = true
+  end
+
+  def compute_and_progress_poule_state
+    self.poule.compute_and_progress_state if self.poule
   end
 
 end
