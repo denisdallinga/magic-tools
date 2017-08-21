@@ -1,6 +1,9 @@
 <div class="container">
-  Hello World!
+  <h1>Poules</h1>
+  <br />
   <% @poules.each do |poule| %>
     <%= link_to poule.name, poule %>
+    (<%= poule.state_to_s %>)
+    <br />
   <% end %>
 </div>
