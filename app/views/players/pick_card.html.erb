@@ -1,6 +1,19 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
+  <%= form_tag("/players/#{@player.id}/pick_card", method: "get") do %>
+    <%= label_tag("Rarity:") %>
+    <%= radio_button_tag(:rarity, 'M') %>
+    <%= label_tag("Mythic") %>
+    <%= radio_button_tag(:rarity, 'R') %>
+    <%= label_tag("Rare") %>
+    <%= radio_button_tag(:rarity, 'U') %>
+    <%= label_tag("Uncommon") %>
+    <%= radio_button_tag(:rarity, 'C') %>
+    <%= label_tag("Common") %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+
   <%= form_tag("/players/#{@player.id}/do_pick", method: "post") do %>
     <% @card_picks.each do |card_pick| %>
       <p>

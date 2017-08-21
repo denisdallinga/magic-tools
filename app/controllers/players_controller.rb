@@ -14,7 +14,10 @@ class PlayersController < ApplicationController
     poule = @player.poule
     raise "This player is not allowed to make a pick" unless @player = poule.player_thats_allowed_to_pick
 
-    @card_picks = poule.card_picks.where('picked_by IS NULL')
+    @card_picks = poule.card_picks.joins('JOIN cards ON card_picks.card_id = cards.id').where('picked_by IS NULL')
+    if params[:rarity]
+      @card_picks = @card_picks.where('cards.rarity = ?', params[:rarity])
+    end
   end
 
   def do_pick
