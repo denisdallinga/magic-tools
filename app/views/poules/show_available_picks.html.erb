@@ -1,0 +1,22 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>
+      <%= link_to @poule.name, @poule %>
+    </strong>
+    <br />
+    <%= @poule.state_to_s %>
+  </p>
+
+  <h2>All available cards</h2>
+  <% @card_picks.each do |card_pick| %>
+    <p>
+      <strong>
+        <%= link_to card_pick.card.card_name, controller: :cards, action: :show, id: card_pick.card.id %>
+        (<%= card_pick.card.rarity %>)
+      </strong>
+    </p>
+  <% end %>
+
+</div>

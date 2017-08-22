@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :widgets
   resources :user_sessions
   resources :poules
+  get 'poules/:id/show_available_picks' => 'poules#show_available_picks'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

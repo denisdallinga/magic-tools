@@ -1,22 +1,27 @@
 <h2>Card Picks</h2>
 
 <p>
-  <% if @poule.player_thats_allowed_to_pick.user == current_user %>
-    It's your turn to pick a card. Click
-    <%= link_to 'here', controller: :players, action: :pick_card, id: @poule.player_thats_allowed_to_pick.id %>
-    to make a selection
-  <% else %>
-    <%= "#{@poule.player_thats_allowed_to_pick.user.email} turn to pick" %>
+  <%= link_to 'All available cards', controller: :poules, action: :show_available_picks, id: @poule.id %> |
+  <% if @poule.dice_roll_is_done %>
+    <% if @poule.player_thats_allowed_to_pick.user == current_user %>
+      It's your turn to pick a card. Click
+      <%= link_to 'here', controller: :players, action: :pick_card, id: @poule.player_thats_allowed_to_pick.id %>
+      to make a selection
+    <% else %>
+      <%= "#{@poule.player_thats_allowed_to_pick.user.email} turn to pick" %>
+    <% end %>
   <% end %>
 </p>
 
-<p>
-  <strong> Cards picked so far: </strong>
-  <ul>
-    <% @poule.players.where(user_id: current_user.id).first.card_picks.each do |card_pick| %>
-      <li>
-        <%= link_to card_pick.card.card_name, controller: :cards, action: :show, id: card_pick.card.id %>
-      </li>
-    <% end %>
-  </ul>
-<p>
+<% if @poule.dice_roll_is_done %>
+  <p>
+    <strong> Cards picked so far: </strong>
+    <ul>
+      <% @poule.players.where(user_id: current_user.id).first.card_picks.each do |card_pick| %>
+        <li>
+          <%= link_to card_pick.card.card_name, controller: :cards, action: :show, id: card_pick.card.id %>
+        </li>
+      <% end %>
+    </ul>
+  <p>
+<% end %>

@@ -3,7 +3,7 @@
 
   <p>
     <strong>
-      <%= @poule.name %>
+      <%= link_to @poule.name, @poule %>
     </strong>
     <br />
     <%= @poule.state_to_s %>
@@ -43,8 +43,6 @@
     </tbody>
   </table>
 
-  <% if @poule.dice_roll_is_done %>
-    <%= render 'card_picks' %>
-  <% end %>
+  <%= render 'card_picks' %>
 
 </div>
