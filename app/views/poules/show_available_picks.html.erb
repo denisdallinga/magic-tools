@@ -9,6 +9,21 @@
     <%= @poule.state_to_s %>
   </p>
 
+  <%= form_tag("/poules/#{@poule.id}/show_available_picks", method: "get") do %>
+    <%= label_tag("Rarity:") %>
+    <%= radio_button_tag(:rarity, 'M') %>
+    <%= label_tag("Mythic") %>
+    <%= radio_button_tag(:rarity, 'R') %>
+    <%= label_tag("Rare") %>
+    <%= radio_button_tag(:rarity, 'U') %>
+    <%= label_tag("Uncommon") %>
+    <%= radio_button_tag(:rarity, 'C') %>
+    <%= label_tag("Common") %>
+    <%= radio_button_tag(:rarity, 'T') %>
+    <%= label_tag("Token") %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+
   <h2>All available cards</h2>
   <% @card_picks.each do |card_pick| %>
     <p>

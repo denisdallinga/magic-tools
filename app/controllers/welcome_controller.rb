@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   # GET /welcome
   def index
-    @poules = Poule.all
+    @poules = Poule.all.order(:id)
   end
 
 end
