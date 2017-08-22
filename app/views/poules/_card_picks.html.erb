@@ -14,7 +14,7 @@
   <strong> Cards picked so far: </strong>
   <ul>
     <% @poule.players.where(user_id: current_user.id).first.card_picks.each do |card_pick| %>
-      </li>
+      <li>
         <%= link_to card_pick.card.card_name, controller: :cards, action: :show, id: card_pick.card.id %>
       </li>
     <% end %>
